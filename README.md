@@ -23,9 +23,11 @@ Player Scene을 두 번 인스턴스화한 테스트 공간이다. 조작 가능
 - [Input Map](docs/06-input-map.md)
 - [Camera2D](docs/07-camera2d.md)
 - [Resource](docs/08-resource.md)
+- [TileMapLayer와 TileSet](docs/09-tilemap-and-tileset.md)
 - [2026-10-06 — Day 1 기록](devlog/2026-10-06.md)
+- [2026-10-07 — Day 2 기록](devlog/2026-10-07.md)
 - [Codex 작업 지침](AGENTS.md)
 
-## 다음 학습 후보
+## 타일 맵 학습 진행
 
-TileMap / TileMapLayer로 테스트 공간을 실제 게임 맵 형태로 구성하기. 아직 구현하지 않았다.
+TileMapLayer / TileSet의 기본 구조와 타일별 충돌 정의·반복 배치를 실습했다. 현재는 `icon.svg`를 사용하는 학습용 맵이다.
