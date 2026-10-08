@@ -2,7 +2,7 @@
 
 ## Player를 별도 Scene으로 분리한 이유
 
-`player.tscn`은 캐릭터의 Node 구성과 설정을 저장한 설계도다. `main.tscn` 내부에만 캐릭터를 구성하는 대신 별도 Scene으로 분리하면 같은 객체를 반복해서 배치할 수 있다. Scene은 화면뿐 아니라 캐릭터·몬스터·총알·상자 같은 재사용 가능한 객체 단위로도 쓸 수 있다. 현재 구현한 것은 Player다.
+`player.tscn`은 캐릭터의 Node 구성과 설정을 저장한 설계도다. `main.tscn` 내부에만 캐릭터를 구성하는 대신 별도 Scene으로 분리하면 같은 객체를 반복해서 배치할 수 있다. Scene은 화면뿐 아니라 캐릭터·몬스터·총알·상자 같은 재사용 가능한 객체 단위로도 쓸 수 있다. 현재 구현한 것은 Player와 Item이다.
 
 ## Instance와 개별 상태
 
@@ -10,8 +10,8 @@ Instance는 Scene을 바탕으로 생성한 실제 객체다. 현재 `main.tscn`
 
 | Instance 이름 | 위치 | controllable |
 | --- | --- | --- |
-| `CharacterBody2D` | `(517, 303)` | 기본값 `true` |
-| `CharacterBody2D2` | `(123, 180)` | `false`로 재설정 |
+| `Player` | `(517, 303)` | 기본값 `true` |
+| `DummyPlayer` | `(123, 180)` | `false`로 재설정 |
 
 둘은 같은 구조와 스크립트를 사용하지만 위치와 변수 상태는 개별적으로 가질 수 있다. 단, 내부 Resource까지 모두 독립적이라는 뜻은 아니다.
 
@@ -21,4 +21,10 @@ Instance는 Scene을 바탕으로 생성한 실제 객체다. 현재 `main.tscn`
 
 `@export` 덕분에 각 Instance의 Inspector에서 값을 설정할 수 있다. 현재 코드에서 `true`는 입력을 받아 움직이고, `false`는 `velocity`를 0으로 설정한다. 카메라 활성화에도 같은 값을 사용한다.
 
-관련 문서: [Scene과 Node](01-scene-and-node.md), [Camera2D](07-camera2d.md), [Resource](08-resource.md).
+## 타입, 원본 루트 이름, Instance 이름
+
+Node의 타입과 이름은 별개다. `item.tscn`의 루트는 이름이 `Item`, 타입이 `Area2D`다. `player.tscn` 루트 이름은 현재 `CharacterBody2D`지만 Main 안의 Instance 이름은 `Player`, `DummyPlayer`다.
+
+원본 Scene의 루트 이름과 다른 Scene에 이미 배치한 Instance 이름도 별도로 저장된다. Item 루트 이름을 Area2D에서 Item으로 변경했지만 기존 Instance 이름은 Area2D, Area2D2, Area2D3으로 남아 있어 Main에서 직접 정리했다. 새 Instance는 변경된 루트 이름을 기본 이름으로 사용할 수 있다. 현재 Main에는 `Item`, `Item2`, `Item3`, `Item4`가 있다.
+
+관련 문서: [Scene과 Node](01-scene-and-node.md), [Camera2D](07-camera2d.md), [Resource](08-resource.md), [Area2D와 Signal](10-area2d-and-signals.md).

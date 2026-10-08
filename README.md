@@ -24,8 +24,11 @@ Player Scene을 두 번 인스턴스화한 테스트 공간이다. 조작 가능
 - [Camera2D](docs/07-camera2d.md)
 - [Resource](docs/08-resource.md)
 - [TileMapLayer와 TileSet](docs/09-tilemap-and-tileset.md)
+- [Area2D와 Signal](docs/10-area2d-and-signals.md)
+- [기본 UI](docs/11-basic-ui.md)
 - [2026-10-06 — Day 1 기록](devlog/2026-10-06.md)
 - [2026-10-07 — Day 2 기록](devlog/2026-10-07.md)
+- [2026-10-08 — Day 3 기록](devlog/2026-10-08.md)
 - [Codex 작업 지침](AGENTS.md)
 
 ## 타일 맵 학습 진행

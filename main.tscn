@@ -1,7 +1,9 @@
 [gd_scene format=4 uid="uid://ck6ettpu2xe5n"]
 
 [ext_resource type="Texture2D" uid="uid://c7uqv6yjkf4wj" path="res://icon.svg" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://b7qr3ficfvdjr" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://culk8cf0jj3uc" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ktrnqqxad07t" path="res://item.tscn" id="3_h2yge"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
 texture = ExtResource("1_0xm2m")
@@ -30,15 +32,16 @@ size = Vector2(52, 910)
 size = Vector2(1612, 38)
 
 [node name="Node2D" type="Node2D" unique_id=464281323]
+script = ExtResource("1_1bvp3")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=969090408]
 tile_map_data = PackedByteArray("AAABAAoAAQAAAAEAAAACAAoAAQAAAAEAAAADAAoAAQAAAAEAAAAEAAoAAQAAAAEAAAAFAAoAAQAAAAEAAAAGAAoAAQAAAAEAAAAHAAoAAQAAAAEAAAAIAAoAAQAAAAEAAAAJAAoAAQAAAAEAAAAKAAoAAQAAAAEAAAALAAoAAQAAAAEAAAAMAAoAAQAAAAEAAAANAAoAAQAAAAEAAAAOAAoAAQAAAAEAAAAPAAoAAQAAAAEAAAAQAAoAAQAAAAEAAAARAAoAAQAAAAEAAAARAAEAAQABAAAAAAARAAIAAQABAAAAAAARAAMAAQABAAAAAAARAAQAAQABAAAAAAASAAUAAQABAAAAAAARAAYAAQABAAAAAAARAAcAAQABAAAAAAARAAgAAQABAAAAAAARAAkAAQABAAAAAAAFAAIAAQABAAAAAAAFAAMAAQABAAAAAAAEAAMAAQABAAAAAAAEAAQAAQABAAAAAAADAAQAAQABAAAAAAADAAUAAQABAAAAAAACAAUAAQABAAAAAAACAAYAAQABAAAAAAALAAEAAQABAAAAAAALAAIAAQABAAAAAAAMAAIAAQABAAAAAAAMAAMAAQABAAAAAAANAAQAAQABAAAAAAAOAAQAAQABAAAAAAAOAAUAAQABAAAAAAAPAAUAAQABAAAAAAAPAAYAAQABAAAAAAA=")
 tile_set = SubResource("TileSet_1bvp3")
 
-[node name="CharacterBody2D" parent="." unique_id=886652180 instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="." unique_id=886652180 instance=ExtResource("1_ig7tw")]
 position = Vector2(517, 303)
 
-[node name="CharacterBody2D2" parent="." unique_id=1057324342 instance=ExtResource("1_ig7tw")]
+[node name="DummyPlayer" parent="." unique_id=1057324342 instance=ExtResource("1_ig7tw")]
 position = Vector2(123, 180)
 controllable = false
 
@@ -89,3 +92,29 @@ uv = PackedVector2Array(-131.5, 62, 104.5, -3, -127.5, 28, -116.5, 57, -141.5, 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" unique_id=1741191500]
 position = Vector2(60, 155)
 shape = SubResource("RectangleShape2D_2tu2c")
+
+[node name="Item" parent="." unique_id=309077911 instance=ExtResource("3_h2yge")]
+position = Vector2(424, 511)
+
+[node name="Item2" parent="." unique_id=920101474 instance=ExtResource("3_h2yge")]
+position = Vector2(619, 517)
+
+[node name="Item3" parent="." unique_id=593941264 instance=ExtResource("3_h2yge")]
+position = Vector2(872, 497)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=953105424]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=793426347]
+anchors_preset = -1
+anchor_left = 0.09200001
+anchor_top = 0.120000005
+anchor_right = 0.09200001
+anchor_bottom = 0.120000005
+offset_left = -29.984009
+offset_top = -11.760002
+offset_right = 31.015991
+offset_bottom = 11.239998
+text = "Score: 0"
+
+[node name="Item4" parent="." unique_id=740249182 instance=ExtResource("3_h2yge")]
+position = Vector2(706, 347)
