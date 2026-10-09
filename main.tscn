@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b7qr3ficfvdjr" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://culk8cf0jj3uc" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ktrnqqxad07t" path="res://item.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bcqsot2pmi1dj" path="res://enemy.tscn" id="5_lquwl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
 texture = ExtResource("1_0xm2m")
@@ -39,7 +40,7 @@ tile_map_data = PackedByteArray("AAABAAoAAQAAAAEAAAACAAoAAQAAAAEAAAADAAoAAQAAAAE
 tile_set = SubResource("TileSet_1bvp3")
 
 [node name="Player" parent="." unique_id=886652180 instance=ExtResource("1_ig7tw")]
-position = Vector2(517, 303)
+position = Vector2(466, 324)
 
 [node name="DummyPlayer" parent="." unique_id=1057324342 instance=ExtResource("1_ig7tw")]
 position = Vector2(123, 180)
@@ -118,3 +119,8 @@ text = "Score: 0"
 
 [node name="Item4" parent="." unique_id=740249182 instance=ExtResource("3_h2yge")]
 position = Vector2(706, 347)
+
+[node name="Enemy" parent="." unique_id=528123238 node_paths=PackedStringArray("target") instance=ExtResource("5_lquwl")]
+position = Vector2(143, 528)
+motion_mode = 1
+target = NodePath("../Player")

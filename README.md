@@ -26,9 +26,11 @@ Player Scene을 두 번 인스턴스화한 테스트 공간이다. 조작 가능
 - [TileMapLayer와 TileSet](docs/09-tilemap-and-tileset.md)
 - [Area2D와 Signal](docs/10-area2d-and-signals.md)
 - [기본 UI](docs/11-basic-ui.md)
+- [Enemy 추적 이동](docs/12-enemy-chasing.md)
 - [2026-10-06 — Day 1 기록](devlog/2026-10-06.md)
 - [2026-10-07 — Day 2 기록](devlog/2026-10-07.md)
 - [2026-10-08 — Day 3 기록](devlog/2026-10-08.md)
+- [2026-10-09 — Day 4 기록](devlog/2026-10-09.md)
 - [Codex 작업 지침](AGENTS.md)
 
 ## 타일 맵 학습 진행
