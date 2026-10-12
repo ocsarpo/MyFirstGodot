@@ -20,13 +20,13 @@ Enemy의 Shape 크기는 116×122다. Main에는 Enemy Instance 하나가 `(143,
 
 ```gdscript
 @export var target: Node2D
+@export var stop_distance: float = 120.0
 var speed: float = 100.0
-var stop_distance: float = 120.0
 ```
 
 `target`은 추적할 Node의 참조다. Main에서 Enemy의 Inspector로 조작 가능한 Player를 지정했으며, 파일에는 `target = NodePath("../Player")`로 저장되어 있다. 대상을 찾는 코드를 Enemy 내부에 고정하지 않고 Instance별로 지정할 수 있다.
 
-현재 `speed`와 `stop_distance`는 일반 변수다. `stop_distance`를 `@export`로 노출해 조절하는 방식도 고민했지만 현재 파일에는 적용하지 않았다.
+`stop_distance`는 Enemy가 Target에 얼마나 가까워지면 멈출지 정하는 값이다. `@export`로 Inspector에 노출하여 코드 파일을 수정하지 않고 Scene Instance별로 조절할 수 있다. 코드 기본값은 `120.0`이며, 현재 `main.tscn`의 Enemy Instance에는 `300.0`이 저장되어 있다. `speed`는 일반 변수로 유지한다.
 
 ## 월드 위치로 방향과 거리 계산
 
@@ -58,7 +58,7 @@ Target을 지정하지 않았으면 해당 물리 프레임의 처리를 끝낸�
 
 `velocity`는 속도 벡터이며 `move_and_slide()`가 이동과 충돌을 처리한다. 이 함수가 시간 간격을 반영하므로 `delta`를 속도에 다시 곱하지 않는다. 기본 이동 원리는 [캐릭터 이동](03-character-movement.md)과 같다.
 
-거리 120 이내에서는 속도를 0으로 만들고 반환하므로 그 프레임에는 `move_and_slide()`를 호출하지 않는다. Player가 다시 멀어지면 다음 물리 프레임부터 추적을 재개한다.
+설정된 `stop_distance` 이내에서는 속도를 0으로 만들고 반환하므로 그 프레임에는 `move_and_slide()`를 호출하지 않는다. Player가 다시 멀어지면 다음 물리 프레임부터 추적을 재개한다.
 
 ## 중심 거리와 충돌 모양
 
@@ -68,8 +68,8 @@ Target을 지정하지 않았으면 해당 물리 프레임의 처리를 끝낸�
 
 ## 숫자를 조절하는 기준
 
-데이터에서 계산해야 하는 값과 게임 느낌을 위해 조절하는 디자인 파라미터는 구분할 수 있다. 현재 `stop_distance = 120.0`은 현재 Shape 크기와 실습 결과에 맞춘 파라미터이며 절대적인 정답은 아니다. 충돌 모양이 바뀌면 다시 검토해야 한다.
+데이터에서 계산해야 하는 값과 게임 느낌을 위해 조절하는 디자인 파라미터는 구분할 수 있다. 현재 `stop_distance`는 자동 계산값이 아니라 Inspector에서 튜닝하는 게임 디자인 값으로 취급한다. 의미 있는 이름을 붙이고 조절 가능하게 노출했으며, 적절한 값은 충돌 모양과 원하는 게임 느낌에 따라 다시 검토한다.
 
-향후에는 Inspector에서 정지 거리를 조절하거나 Shape 크기를 반영하는 계산, Area2D 기반 감지 영역을 검토할 수 있다. 이번 Enemy에는 이러한 개선을 구현하지 않았다.
+CollisionShape 크기를 반영하는 자동 계산과 Area2D 기반 Enemy 감지 영역은 아직 구현하지 않았다.
 
-현재 학습한 동작은 목표 방향으로 이동하고 일정 거리에서 멈추는 추적이다. 관련 경험은 [Day 4 기록](../devlog/2026-10-09.md)에 정리했다.
+현재 학습한 동작은 목표 방향으로 이동하고 일정 거리에서 멈추는 추적이다. 관련 경험은 [Day 4 기록](../devlog/2026-10-09.md), Inspector 노출은 [Day 5 기록](../devlog/2026-10-12.md)에 정리했다.

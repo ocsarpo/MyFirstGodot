@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
 @export var target: Node2D
+@export var stop_distance: float = 120.0
+
 var speed: float = 100.0
-var stop_distance: float = 120.0
 
 func _physics_process(delta: float) -> void:
 	if target == null:

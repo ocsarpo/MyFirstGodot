@@ -124,3 +124,4 @@ position = Vector2(706, 347)
 position = Vector2(143, 528)
 motion_mode = 1
 target = NodePath("../Player")
+stop_distance = 300.0
