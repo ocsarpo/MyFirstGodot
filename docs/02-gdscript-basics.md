@@ -2,7 +2,7 @@
 
 ## 스크립트의 기본 구성
 
-현재 Player 스크립트는 `gdscript.gd`다.
+현재 Player 스크립트는 `player.gd`다. 이전 이름은 `gdscript.gd`였다.
 
 ```gdscript
 extends CharacterBody2D

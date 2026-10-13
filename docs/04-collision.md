@@ -36,4 +36,20 @@ StaticBody2D
 
 Camera Limit은 카메라가 보여줄 영역을 제한한다. Collision은 Player가 이동할 수 있는 영역을 제한한다. 카메라 Limit만으로는 Player가 월드 밖으로 나가는 것을 막을 수 없다.
 
-관련 문서: [Camera2D](07-camera2d.md), [Resource 공유](08-resource.md).
+## 이동 후 충돌 대상 확인
+
+Enemy는 `move_and_slide()` 이후 가장 최근 이동에서 얻은 slide collision 정보를 확인한다.
+
+```gdscript
+for i in get_slide_collision_count():
+    var collision = get_slide_collision(i)
+    var collider = collision.get_collider()
+    if collider.is_in_group("player"):
+        collider.die()
+```
+
+`get_slide_collision_count()`는 최근 `move_and_slide()`의 slide 충돌 개수, `get_slide_collision(i)`는 각 충돌 정보, `get_collider()`는 부딪힌 객체를 제공한다. 현재는 player 그룹인 객체에 `die()`가 있다고 가정하고 직접 호출한다.
+
+접촉한 채 계속 이동을 시도하면 여러 물리 프레임에서 충돌이 반복 감지될 수 있다. 실습에서 로그가 반복 출력되는 것을 확인했으며, Player의 `is_dead` 상태로 실제 사망 처리는 한 번만 실행하도록 했다.
+
+관련 문서: [Camera2D](07-camera2d.md), [Resource 공유](08-resource.md), [사망 상태와 Signal](10-area2d-and-signals.md).

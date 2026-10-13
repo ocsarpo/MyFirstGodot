@@ -35,7 +35,7 @@ Group은 Node를 역할에 따라 묶는 이름이다. `is_in_group("player")`�
 
 ## score 상태와 사용자 정의 Signal
 
-게임 진행 중 변하며 유지되는 값이 상태(state)다. 현재 Player 스크립트 파일 이름은 `gdscript.gd`이며, 각 Player Instance가 자신의 score를 가진다.
+게임 진행 중 변하며 유지되는 값이 상태(state)다. 현재 Player 스크립트 파일 이름은 `player.gd`이며, 각 Player Instance가 자신의 score를 가진다.
 
 ```gdscript
 signal score_changed(new_score: int)
@@ -72,3 +72,24 @@ Player가 Item 영역에 진입
 ```
 
 실습에서 아이템을 여러 개 획득하며 점수가 1, 2, 3으로 누적되는 것을 확인했다.
+
+## 사망 상태와 died Signal
+
+Enemy 충돌에서는 Player의 `die()`를 직접 호출한다. 반복 충돌로 여러 번 호출되어도 사망 처리를 한 번만 하기 위해 `is_dead`를 사용한다.
+
+```gdscript
+signal died
+var is_dead: bool = false
+
+func die() -> void:
+    if is_dead:
+        return
+    is_dead = true
+    velocity = Vector2.ZERO
+    print("Player died!")
+    died.emit()
+```
+
+`is_dead`는 사망 여부를 저장하는 상태다. 처음 사망할 때 속도를 0으로 만들고 `died` Signal을 발생시킨다. 이후 호출은 바로 반환한다. Player의 `_physics_process()`도 시작 부분에서 `is_dead`이면 반환하므로 입력과 이동 처리가 중단된다.
+
+`score_changed`처럼 Player는 상태 변경 사실만 알리고, Main이 이를 받아 UI를 변경한다. `died`에는 전달 인자가 없다. 현재 사망 처리는 Player를 삭제하거나 게임 전체를 일시 정지하는 기능은 아니다. UI 연결은 [기본 UI](11-basic-ui.md)를 참고한다.

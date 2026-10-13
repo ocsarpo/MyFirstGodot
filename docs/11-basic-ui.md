@@ -19,6 +19,7 @@ CanvasLayer는 월드 카메라의 이동과 독립된 UI를 표시하는 데 �
 ```gdscript
 func _ready() -> void:
     $Player.score_changed.connect(_on_score_changed)
+    $Player.died.connect(_on_player_died)
 ```
 
 `connect()`로 Signal 발생 시 실행할 함수를 등록한다. 여기서 `$Player`는 `main.tscn` 안의 실제 Instance 이름을 사용한 경로다. 현재 DummyPlayer의 Signal은 이 UI에 연결하지 않는다.
@@ -31,5 +32,18 @@ func _on_score_changed(new_score: int) -> void:
 Signal이 전달한 정수 점수를 `str()`로 문자열로 바꿔 Label에 표시한다. 실습에서는 아이템 획득에 따라 `Score: 0 → Score: 1 → Score: 2 → Score: 3`으로 갱신됨을 확인했다.
 
 Player는 score를 관리하고 변경 사실을 알린다. Main은 그 알림을 받아 UI를 갱신한다. Player가 Label을 직접 수정하지 않으므로 점수 상태와 화면 표시의 역할을 나눌 수 있다.
+
+## 사망 알림을 GAME OVER로 표시
+
+Main은 `_ready()`에서 연결한 `died` Signal을 다음 함수로 받는다.
+
+```gdscript
+func _on_player_died() -> void:
+    $CanvasLayer/Label.text = "GAME OVER"
+```
+
+별도 화면을 만들지 않고 기존 점수 Label의 문자열을 바꾼다. Player가 사망 상태와 이동 중단을 담당하고 Main이 화면 표시를 담당한다.
+
+`$Player`는 현재 스크립트가 붙은 Node 기준 `get_node("Player")`의 축약 문법이다. 클래스 이름이나 Scene 파일명이 아니라 Scene Tree의 Node 이름을 따른다. Main의 실제 루트 이름은 `Node2D`이며, `$CanvasLayer/Label`은 그 아래 CanvasLayer와 Label 경로를 따라간다.
 
 관련 문서: [Area2D와 Signal](10-area2d-and-signals.md), [Scene과 Instance 이름](05-scene-and-instance.md).

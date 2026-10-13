@@ -2,7 +2,7 @@
 
 ## 처음: Sprite2D 위치를 직접 변경
 
-초기 코드가 `sprite_2d.gd`에 남아 있다. 현재 `player.tscn`에 연결된 스크립트는 이 파일이 아니라 `gdscript.gd`다.
+초기에는 `sprite_2d.gd`를 사용했다. 현재 이 파일은 삭제되었으며, 아래는 당시 학습 코드다. 현재 `player.tscn`에 연결된 스크립트는 `player.gd`다.
 
 ```gdscript
 func _process(delta: float) -> void:
@@ -18,6 +18,9 @@ func _process(delta: float) -> void:
 
 ```gdscript
 func _physics_process(delta: float) -> void:
+    if is_dead:
+        return
+
     if controllable:
         var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
         velocity = direction * speed
@@ -28,6 +31,8 @@ func _physics_process(delta: float) -> void:
 ```
 
 `velocity`는 초당 이동 속도 벡터다. `move_and_slide()`가 이를 기반으로 실제 이동과 충돌 시 미끄러짐을 처리한다. 물리 이동이므로 `_physics_process()`에서 실행한다. 시간 간격은 함수 내부에서 반영하므로 속도에 `delta`를 다시 곱하지 않는다. 현재 인자 `delta`는 코드에서 직접 사용하지 않는다.
+
+현재는 사망 상태인 `is_dead`를 먼저 확인해 입력과 이동 처리를 중단한다. 사망 처리와 중복 방지는 [Signal 문서](10-area2d-and-signals.md)에 정리했다.
 
 ## Grounded와 Floating
 

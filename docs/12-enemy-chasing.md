@@ -20,13 +20,13 @@ Enemy의 Shape 크기는 116×122다. Main에는 Enemy Instance 하나가 `(143,
 
 ```gdscript
 @export var target: Node2D
-@export var stop_distance: float = 120.0
+@export var stop_distance: float = 0.0
 var speed: float = 100.0
 ```
 
 `target`은 추적할 Node의 참조다. Main에서 Enemy의 Inspector로 조작 가능한 Player를 지정했으며, 파일에는 `target = NodePath("../Player")`로 저장되어 있다. 대상을 찾는 코드를 Enemy 내부에 고정하지 않고 Instance별로 지정할 수 있다.
 
-`stop_distance`는 Enemy가 Target에 얼마나 가까워지면 멈출지 정하는 값이다. `@export`로 Inspector에 노출하여 코드 파일을 수정하지 않고 Scene Instance별로 조절할 수 있다. 코드 기본값은 `120.0`이며, 현재 `main.tscn`의 Enemy Instance에는 `300.0`이 저장되어 있다. `speed`는 일반 변수로 유지한다.
+`stop_distance`는 Enemy가 Target에 얼마나 가까워지면 멈출지 정하는 값이다. `@export`로 Inspector에 노출하여 코드 파일을 수정하지 않고 Scene Instance별로 조절할 수 있다. 현재 충돌 기반 Game Over를 확인하기 위해 코드 기본값이 `0.0`으로 변경되었고, `main.tscn`의 기존 `300.0` 재설정은 제거되어 기본값을 사용한다. `speed`는 일반 변수로 유지한다.
 
 ## 월드 위치로 방향과 거리 계산
 
@@ -37,7 +37,7 @@ var speed: float = 100.0
 
 목표가 오른쪽이면 방향은 대략 `(1, 0)`, 위쪽이면 `(0, -1)`이다. 이번에는 Enemy와 Target의 `global_position`으로 계산했다.
 
-## 현재 추적 코드
+## 현재 추적 코드의 이동 부분
 
 ```gdscript
 func _physics_process(delta: float) -> void:
@@ -71,5 +71,11 @@ Target을 지정하지 않았으면 해당 물리 프레임의 처리를 끝낸�
 데이터에서 계산해야 하는 값과 게임 느낌을 위해 조절하는 디자인 파라미터는 구분할 수 있다. 현재 `stop_distance`는 자동 계산값이 아니라 Inspector에서 튜닝하는 게임 디자인 값으로 취급한다. 의미 있는 이름을 붙이고 조절 가능하게 노출했으며, 적절한 값은 충돌 모양과 원하는 게임 느낌에 따라 다시 검토한다.
 
 CollisionShape 크기를 반영하는 자동 계산과 Area2D 기반 Enemy 감지 영역은 아직 구현하지 않았다.
+
+## 충돌에서 패배 조건으로 연결
+
+현재 Enemy는 `move_and_slide()` 다음에 slide collision을 순회하고, player 그룹인 충돌 대상의 `die()`를 호출한다. 충돌 정보를 읽는 코드는 [충돌 문서](04-collision.md)에 정리했다.
+
+Player는 사망 상태를 기록하고 이동을 중단한 뒤 `died` Signal을 보낸다. Main은 기존 점수 Label을 GAME OVER로 바꾼다. 실제로 부딪히기 전에 멈추면 이 흐름을 확인할 수 없으므로 이번에는 정지 거리를 0으로 두었다.
 
 현재 학습한 동작은 목표 방향으로 이동하고 일정 거리에서 멈추는 추적이다. 관련 경험은 [Day 4 기록](../devlog/2026-10-09.md), Inspector 노출은 [Day 5 기록](../devlog/2026-10-12.md)에 정리했다.
