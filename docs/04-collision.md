@@ -9,7 +9,7 @@
 - `CharacterBody2D`: 코드로 움직이고 충돌을 처리하는 캐릭터의 본체다.
 - `StaticBody2D`: 벽·바닥·건물처럼 움직이지 않는 물리 객체에 적합하다.
 
-현재 벽 구조는 다음과 같다.
+초기에 사용한 벽 구조는 다음과 같다.
 
 ```text
 StaticBody2D
@@ -17,9 +17,9 @@ StaticBody2D
 └─ CollisionShape2D
 ```
 
-## 사방 경계의 현재 구성
+## 초기 사방 경계와 현재 타일 경계
 
-`main.tscn`에는 사방 경계를 위한 StaticBody2D 네 개가 있다. 위치 기준으로 확인한 실제 이름은 다음과 같다.
+초기 `main.tscn`에는 사방 경계를 위한 StaticBody2D 네 개가 있었다. 당시 실제 이름은 다음과 같다.
 
 | 방향 | 실제 Node 이름 |
 | --- | --- |
@@ -28,7 +28,7 @@ StaticBody2D
 | 왼쪽 | `StaticBody2D3` |
 | 아래쪽 | `StaticBody2D4` |
 
-`LeftWall`, `RightWall`, `TopWall`, `BottomWall`은 역할을 설명하는 이름이며 현재 파일에 저장된 이름은 아니다. 각 벽은 서로 다른 RectangleShape2D Resource를 참조한다.
+`LeftWall`, `RightWall`, `TopWall`, `BottomWall`은 역할을 설명하는 이름이다. 당시 각 벽은 서로 다른 RectangleShape2D Resource를 참조했다. 2026-10-16에는 네 벽을 제거하고 `Wall` TileMapLayer에 Collision 타일을 배치했다. 현재 구성은 [TileMap 문서](09-tilemap-and-tileset.md)를 참고한다.
 
 충돌 영역을 점검할 때는 에디터의 **Debug → Visible Collision Shapes**를 켜고 실행하면 된다. 외형과 물리 모양이 맞는지 확인하는 데 유용하다.
 

@@ -16,7 +16,7 @@ Item (Area2D)
 
 Signal은 어떤 일이 발생했음을 알리는 이벤트다. `body_entered`는 Godot이 제공하는 Area2D Signal이며, Physics Body가 영역에 들어오면 해당 body를 전달한다.
 
-이번에는 에디터에서 Signal을 연결했다. `item.tscn`에 `body_entered`와 `_on_body_entered`의 연결이 저장되어 있다. 처음에는 함수에서 body 이름을 출력하여 Player 진입 시 호출되는지 확인했다. 현재 코드는 다음과 같다.
+이번에는 에디터에서 Signal을 연결했다. `item.tscn`에 `body_entered`와 `_on_body_entered`의 연결이 저장되어 있다. 처음에는 함수에서 body 이름을 출력하여 Player 진입 시 호출되는지 확인했다. 아래는 즉시 삭제하던 초기 코드이며, 현재는 `collected` 확인과 획득 Tween 후 삭제를 사용한다. [Tween 문서](13-tween-and-feedback.md)에 변경된 흐름을 정리했다.
 
 ```gdscript
 func _on_body_entered(body: Node2D) -> void:
@@ -27,7 +27,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 ### Group으로 역할 확인
 
-Group은 Node를 역할에 따라 묶는 이름이다. `is_in_group("player")`로 그룹 소속을 확인하면 Node 이름 자체에 의존하지 않아도 된다. 현재 `player.tscn` 루트에 `player` 그룹이 설정되어 있어 Player와 DummyPlayer 모두 이 그룹을 가진다. `controllable`은 입력 조작 여부이며 그룹 소속과는 별개다.
+Group은 Node를 역할에 따라 묶는 이름이다. `is_in_group("player")`로 그룹 소속을 확인하면 Node 이름 자체에 의존하지 않아도 된다. `player.tscn` 루트에 `player` 그룹이 설정되어 있다. 과거 DummyPlayer도 같은 그룹이었지만 현재는 제거되었다. `controllable`은 입력 조작 여부이며 그룹 소속과는 별개다.
 
 ### queue_free()
 
@@ -68,7 +68,7 @@ Player가 Item 영역에 진입
 → Player.collect_item() 직접 호출
 → score 증가, score_changed.emit(score)
 → Main이 수신하여 Label 갱신
-→ Item이 queue_free()로 삭제 예약
+→ Item 획득 Tween 종료 대기 → queue_free()로 삭제 예약
 ```
 
 실습에서 아이템을 여러 개 획득하며 점수가 1, 2, 3으로 누적되는 것을 확인했다.

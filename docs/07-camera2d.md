@@ -4,7 +4,7 @@
 
 Camera2D는 2D 월드에서 화면에 보여줄 위치를 정한다. Player의 자식으로 두면 부모의 Transform을 따라 움직이므로 캐릭터를 추적하기 쉽다.
 
-현재 Player Scene의 두 Instance 모두 Camera2D를 갖지만 조작 가능한 Player의 카메라만 활성화한다.
+초기에는 Player Scene을 두 번 배치해 조작 가능한 Player의 카메라만 활성화했다. 현재는 DummyPlayer를 제거하고 Player 하나를 사용한다.
 
 ```gdscript
 func _ready() -> void:
@@ -25,8 +25,14 @@ Player가 움직이면 실제 월드 위치는 변한다. 카메라도 따라가
 
 ## Camera Limit
 
-현재 Limit은 월드 좌표 기준으로 왼쪽 `0`, 위쪽 `0`, 오른쪽 `1600`, 아래쪽 `900`이다. 화면이 월드 경계를 넘어 보여주지 않도록 카메라의 스크롤 범위를 제한한다.
+이전 Limit 값인 왼쪽 `0`, 위쪽 `0`, 오른쪽 `1600`, 아래쪽 `900`은 파일에 남아 있지만 현재 `limit_enabled = false`로 비활성화되어 있다. 맵을 넓히면서 Player를 계속 따라가도록 변경했다. Limit을 활성화하면 카메라의 스크롤 범위를 제한한다.
 
-Limit은 시야 제한이다. Player의 이동 제한은 사방 벽과 물리 충돌이 담당한다.
+Limit은 시야 제한이다. 현재 Player의 이동 제한은 Wall TileMapLayer의 Collision 타일이 담당한다.
+
+## Window Size와 Camera Zoom
+
+현재 기본 viewport 크기는 `1280 × 720`으로 설정했다. 16:9 화면을 기준으로 사용한다.
+
+Camera2D의 실제 Zoom 값은 `(0.6, 0.6)`이다. 1보다 작게 설정해 월드의 Player·Enemy·Item·타일이 작게 보이고 더 넓은 영역이 화면에 들어오게 했다. CanvasLayer의 UI는 월드 Camera Zoom의 영향을 받지 않는다.
 
 관련 문서: [충돌](04-collision.md), [Scene과 Instance](05-scene-and-instance.md).

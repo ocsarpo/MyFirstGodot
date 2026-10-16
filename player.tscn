@@ -11,6 +11,8 @@ motion_mode = 1
 script = ExtResource("1_onrkg")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1264367659]
+zoom = Vector2(0.6, 0.6)
+limit_enabled = false
 limit_left = 0
 limit_top = 0
 limit_right = 1600

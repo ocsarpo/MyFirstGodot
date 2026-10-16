@@ -6,7 +6,7 @@
 
 ## Instance와 개별 상태
 
-Instance는 Scene을 바탕으로 생성한 실제 객체다. 현재 `main.tscn`은 `player.tscn`을 두 번 인스턴스화한다.
+Instance는 Scene을 바탕으로 생성한 실제 객체다. 초기에는 `player.tscn`을 두 번 인스턴스화해 아래 설정을 비교했다. 현재는 DummyPlayer를 제거했고 Player 위치는 `(14, 50)`이다.
 
 | Instance 이름 | 위치 | controllable |
 | --- | --- | --- |
@@ -23,8 +23,10 @@ Instance는 Scene을 바탕으로 생성한 실제 객체다. 현재 `main.tscn`
 
 ## 타입, 원본 루트 이름, Instance 이름
 
-Node의 타입과 이름은 별개다. `item.tscn`의 루트는 이름이 `Item`, 타입이 `Area2D`다. `player.tscn` 루트 이름은 현재 `CharacterBody2D`지만 Main 안의 Instance 이름은 `Player`, `DummyPlayer`다.
+Node의 타입과 이름은 별개다. `item.tscn`의 루트는 이름이 `Item`, 타입이 `Area2D`다. `player.tscn` 루트 이름은 현재 `CharacterBody2D`지만 Main 안의 Instance 이름은 `Player`다. 과거에는 `DummyPlayer`도 배치했다.
 
-원본 Scene의 루트 이름과 다른 Scene에 이미 배치한 Instance 이름도 별도로 저장된다. Item 루트 이름을 Area2D에서 Item으로 변경했지만 기존 Instance 이름은 Area2D, Area2D2, Area2D3으로 남아 있어 Main에서 직접 정리했다. 새 Instance는 변경된 루트 이름을 기본 이름으로 사용할 수 있다. 현재 Main에는 `Item`, `Item2`, `Item3`, `Item4`가 있다.
+원본 Scene의 루트 이름과 다른 Scene에 이미 배치한 Instance 이름도 별도로 저장된다. Item 루트 이름을 Area2D에서 Item으로 변경했지만 기존 Instance 이름은 Area2D, Area2D2, Area2D3으로 남아 있어 Main에서 직접 정리했다. 새 Instance는 변경된 루트 이름을 기본 이름으로 사용할 수 있다. 현재 Main에는 `Item`부터 `Item21`까지 배치되어 있다.
+
+Item 공통 스크립트에 idle Tween을 추가하자 모든 Instance에 같은 동작이 적용됐다. 각 Instance는 `_ready()`를 독립적으로 실행하고 랜덤 시작 시차를 가진다. [Tween 문서](13-tween-and-feedback.md)에서 구체적인 흐름을 볼 수 있다.
 
 관련 문서: [Scene과 Node](01-scene-and-node.md), [Camera2D](07-camera2d.md), [Resource](08-resource.md), [Area2D와 Signal](10-area2d-and-signals.md).

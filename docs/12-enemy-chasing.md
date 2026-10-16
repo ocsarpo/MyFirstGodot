@@ -12,7 +12,7 @@ Enemy (CharacterBody2D, enemy.gd)
 └─ CollisionShape2D RectangleShape2D
 ```
 
-Enemy의 Shape 크기는 116×122다. Main에는 Enemy Instance 하나가 `(143, 528)`에 배치되어 있고, 이 Instance의 Motion Mode는 Floating이다. 원본 `enemy.tscn`에는 Floating 설정이 따로 저장되어 있지 않다.
+Enemy의 Shape 크기는 116×122다. Main에는 Enemy Instance 하나가 `(-483, 20)`에 배치되어 있고, 이 Instance의 Motion Mode는 Floating이다. 원본 `enemy.tscn`에는 Floating 설정이 따로 저장되어 있지 않다.
 
 ## Script 연결과 Target 참조
 

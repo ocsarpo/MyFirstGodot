@@ -27,12 +27,14 @@ Player Scene을 두 번 인스턴스화한 테스트 공간이다. 조작 가능
 - [Area2D와 Signal](docs/10-area2d-and-signals.md)
 - [기본 UI](docs/11-basic-ui.md)
 - [Enemy 추적 이동](docs/12-enemy-chasing.md)
+- [Tween과 획득 피드백](docs/13-tween-and-feedback.md)
 - [2026-10-06 — Day 1 기록](devlog/2026-10-06.md)
 - [2026-10-07 — Day 2 기록](devlog/2026-10-07.md)
 - [2026-10-08 — Day 3 기록](devlog/2026-10-08.md)
 - [2026-10-09 — Day 4 기록](devlog/2026-10-09.md)
 - [2026-10-12 — Day 5 기록](devlog/2026-10-12.md)
 - [2026-10-13 — Day 6 기록](devlog/2026-10-13.md)
+- [2026-10-16 — Day 7 기록](devlog/2026-10-16.md)
 - [Codex 작업 지침](AGENTS.md)
 
 ## 타일 맵 학습 진행

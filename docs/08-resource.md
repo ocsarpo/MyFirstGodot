@@ -22,6 +22,6 @@ Node를 복제한다고 내부 Resource까지 반드시 복제되는 것은 아�
 
 각 벽의 충돌 크기를 독립적으로 설정해야 하므로 Inspector의 Shape Resource 메뉴에서 **Make Unique**를 사용했다. 해당 참조에 독립된 Resource를 만들어 이후 크기 변경이 다른 벽에 영향을 주지 않게 했다.
 
-현재 `main.tscn`에는 네 개의 RectangleShape2D가 각각 별도의 sub-resource로 저장되어 있고, 벽마다 다른 Shape를 참조한다. 공유 자체가 오류인 것은 아니며, 독립 편집이 필요한지에 따라 선택한다.
+당시 `main.tscn`에는 네 개의 RectangleShape2D를 각각 별도 sub-resource로 저장해 벽마다 다른 Shape를 참조하도록 했다. 현재 이 벽들은 타일 경계로 대체되어 삭제되었다. 공유 자체가 오류인 것은 아니며, 독립 편집이 필요한지에 따라 선택한다.
 
 관련 문서: [충돌](04-collision.md), [Day 1 시행착오](../devlog/2026-10-06.md).
