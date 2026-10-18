@@ -35,15 +35,15 @@ Player는 score를 관리하고 변경 사실을 알린다. Main은 그 알림�
 
 ## 사망 알림을 GAME OVER로 표시
 
-Main은 `_ready()`에서 연결한 `died` Signal을 다음 함수로 받는다.
+Main은 Player의 사망 연출 종료 후 전달되는 `died` Signal을 받는다. 다음은 `_on_player_died()`의 상태와 텍스트 설정 부분이다.
 
 ```gdscript
-func _on_player_died() -> void:
-    is_game_over = true
-    $CanvasLayer/Label.text = "GAME OVER\n Press R to Restart"
+is_game_over = true
+var label = $CanvasLayer/Label
+label.text = "GAME OVER\nPress R to Restart"
 ```
 
-별도 화면을 만들지 않고 기존 점수 Label의 문자열을 바꾼다. Player가 사망 상태와 이동 중단을 담당하고 Main이 화면 표시를 담당한다.
+별도 화면을 만들지 않고 기존 점수 Label의 문자열을 바꾼다. 이어서 Label을 작고 투명하게 설정하고 페이드 인·확대·복귀 Tween을 실행한다. Player가 사망 상태와 이동 중단을 담당하고 Main이 화면 표시를 담당한다. `modulate.a`와 `pivot_offset` 설정은 [Tween 문서](13-tween-and-feedback.md)를 참고한다.
 
 `$Player`는 현재 스크립트가 붙은 Node 기준 `get_node("Player")`의 축약 문법이다. 클래스 이름이나 Scene 파일명이 아니라 Scene Tree의 Node 이름을 따른다. Main의 실제 루트 이름은 `Node2D`이며, `$CanvasLayer/Label`은 그 아래 CanvasLayer와 Label 경로를 따라간다.
 
@@ -51,7 +51,7 @@ func _on_player_died() -> void:
 
 ## Game Over 이후 Restart
 
-Main은 `var is_game_over: bool = false`로 상태를 시작한다. Player 사망 시 참으로 바꾸고 안내를 표시한다.
+Main은 `var is_game_over: bool = false`로 상태를 시작한다. Player 사망 Tween이 끝나 `died`를 수신하면 참으로 바꾸고 안내 연출을 시작한다. 현재는 GAME OVER Tween 완료를 기다리지 않으므로 이 UI 연출 중에도 R로 재시작할 수 있다.
 
 ```gdscript
 func _process(delta: float) -> void:

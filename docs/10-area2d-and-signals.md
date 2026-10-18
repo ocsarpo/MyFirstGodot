@@ -81,15 +81,17 @@ Enemy 충돌에서는 Player의 `die()`를 직접 호출한다. 반복 충돌로
 signal died
 var is_dead: bool = false
 
-func die() -> void:
-    if is_dead:
-        return
-    is_dead = true
-    velocity = Vector2.ZERO
-    print("Player died!")
-    died.emit()
 ```
 
-`is_dead`는 사망 여부를 저장하는 상태다. 처음 사망할 때 속도를 0으로 만들고 `died` Signal을 발생시킨다. 이후 호출은 바로 반환한다. Player의 `_physics_process()`도 시작 부분에서 `is_dead`이면 반환하므로 입력과 이동 처리가 중단된다.
+`is_dead`는 사망 여부를 저장하는 상태다. `die()`는 이미 죽었다면 반환하고, 처음 호출됐을 때 상태를 참으로 바꾸고 속도를 0으로 만든다. Player의 `_physics_process()`도 시작 부분에서 `is_dead`이면 반환하므로 입력과 이동 처리가 중단된다.
+
+현재는 Sprite2D의 사망 Tween을 실행한 뒤 다음 순서로 Signal을 보낸다.
+
+```gdscript
+await tween.finished
+died.emit()
+```
+
+사망 상태는 즉시 적용하지만 외부 알림은 연출 종료 후 전달한다. 따라서 Main의 GAME OVER 표시는 Player Sprite가 사라진 뒤 시작한다. 연출 중 반복되는 `die()` 호출도 `is_dead` 확인으로 막는다. Tween 값은 [피드백 문서](13-tween-and-feedback.md)에 정리했다.
 
 `score_changed`처럼 Player는 상태 변경 사실만 알리고, Main이 이를 받아 UI를 변경한다. `died`에는 전달 인자가 없다. 현재 사망 처리는 Player를 삭제하거나 게임 전체를 일시 정지하는 기능은 아니다. UI 연결은 [기본 UI](11-basic-ui.md)를 참고한다.

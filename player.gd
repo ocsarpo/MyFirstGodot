@@ -34,6 +34,28 @@ func die() -> void:
 		
 	is_dead = true
 	velocity = Vector2.ZERO
-	print("Player died!")
+	
+	var sprite = $Sprite2D
+	var original_scale = sprite.scale
+	
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	
+	tween.tween_property(
+		sprite,
+		"scale",
+		original_scale * 2.0,
+		0.1
+	)
+	
+	tween.tween_property(
+		sprite,
+		"scale",
+		Vector2.ZERO,
+		0.25
+	)
+	
+	await tween.finished
 	
 	died.emit()
