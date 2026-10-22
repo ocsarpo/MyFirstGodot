@@ -20,6 +20,7 @@ CanvasLayer는 월드 카메라의 이동과 독립된 UI를 표시하는 데 �
 func _ready() -> void:
     $Player.score_changed.connect(_on_score_changed)
     $Player.died.connect(_on_player_died)
+    get_tree().paused = true
 ```
 
 `connect()`로 Signal 발생 시 실행할 함수를 등록한다. 여기서 `$Player`는 `main.tscn` 안의 실제 Instance 이름을 사용한 경로다. 학습용 DummyPlayer는 현재 제거되었다.
@@ -62,3 +63,29 @@ func _process(delta: float) -> void:
 Input Map의 `restart`에는 R 키가 연결되어 있다. `is_action_just_pressed()`는 Action을 누르기 시작한 프레임에만 참이므로 누르고 있는 동안 계속 요청하는 것을 피한다. 현재 코드는 Game Over 상태에서만 재시작한다.
 
 `get_tree()`로 SceneTree에 접근하고 `reload_current_scene()`으로 현재 Scene을 다시 로드한다. 이번 프로젝트의 Player 상태·Score·아이템·Enemy 위치·Main의 Game Over 상태는 Scene과 스크립트의 초기값으로 돌아간다. 각 값을 수동 초기화하는 대신 현재 Scene을 새로 구성해 최소 게임 루프를 완성했다.
+
+현재는 다시 로드할 때 Main의 `_ready()`가 Pause를 설정하므로 Restart 후에도 시작 화면을 거친다.
+
+## 시작 화면의 UI 구성
+
+```text
+CanvasLayer
+├─ Label (점수 / GAME OVER)
+└─ StartScreen (Control)
+   └─ CenterContainer
+      └─ VBoxContainer
+         ├─ TitleLabel: MY FIRST GODOT
+         └─ StartButton: START
+```
+
+Control은 UI의 위치와 크기를 다루는 기본 Node다. StartScreen과 CenterContainer에는 Full Rect Anchor Preset이 적용되어 부모 영역을 채운다. CenterContainer는 자식 VBoxContainer를 중앙에 배치하고, VBoxContainer는 제목과 버튼을 세로로 정렬한다.
+
+## Pause 중 입력과 시작 전환
+
+게임 실행 직후 Player와 Enemy가 움직이지 않도록 Main의 `_ready()`에서 `get_tree().paused = true`를 설정한다. Node의 Process Mode는 Pause 여부에 따라 처리할지를 정한다. 현재 Scene에서는 StartScreen 자체가 아니라 **StartButton에만 When Paused (`process_mode = 2`)**를 지정했다.
+
+버튼의 `pressed` Signal은 Scene 파일에서 Main의 `_on_start_button_pressed()`에 연결되어 있다. Signal로 연결된 함수는 Main의 일반 프레임 처리가 Pause되어 있어도 호출될 수 있다.
+
+전환 Tween에는 `tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)`를 설정해 Pause 중에도 실행되게 했다. StartScreen의 `modulate:a`를 0.25초 동안 0으로 줄이고, `await tween.finished` 이후 `hide()`와 `get_tree().paused = false`를 순서대로 실행한다. 단순히 투명해진 순간부터 플레이가 진행되는 것이 아니라 페이드 완료 뒤 Pause를 해제한다.
+
+이로써 실행 → 시작 화면 → START → Fade Out → 플레이 → GAME OVER → R → 시작 화면으로 흐름이 연결된다. Alpha와 Tween의 기본 개념은 [시각적 피드백](13-tween-and-feedback.md)을 참고한다.

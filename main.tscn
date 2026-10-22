@@ -63,6 +63,34 @@ offset_right = 31.015991
 offset_bottom = 11.239998
 text = "Score: 0"
 
+[node name="StartScreen" type="Control" parent="CanvasLayer" unique_id=513858175]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/StartScreen" unique_id=1645854554]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StartScreen/CenterContainer" unique_id=267449904]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer" unique_id=1487371483]
+layout_mode = 2
+text = "MY FIRST GODOT"
+
+[node name="StartButton" type="Button" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer" unique_id=634009442]
+process_mode = 2
+layout_mode = 2
+text = "START"
+
 [node name="Item4" parent="." unique_id=740249182 instance=ExtResource("3_h2yge")]
 position = Vector2(706, 347)
 
@@ -126,3 +154,5 @@ position = Vector2(548, -730)
 
 [node name="Item21" parent="." unique_id=1427795956 instance=ExtResource("3_h2yge")]
 position = Vector2(1356, -753)
+
+[connection signal="pressed" from="CanvasLayer/StartScreen/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

@@ -6,6 +6,10 @@ var is_game_over: bool = false
 func _ready() -> void:
 	$Player.score_changed.connect(_on_score_changed)
 	$Player.died.connect(_on_player_died)
+	
+	# StartButton 은 paused 에서 동작해야하니 인스펙터->process->mode->When Paused 설정
+	# 버튼선택->시그널->pressed() 추가 (main.gd)
+	get_tree().paused = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,3 +69,21 @@ func _on_player_died() -> void:
 func _process(delta: float) -> void:
 	if is_game_over and Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
+
+
+func _on_start_button_pressed() -> void:
+	var strart_screen = $CanvasLayer/StartScreen
+	
+	var tween = create_tween()
+	# 이 Tween만 Pause 상태에서도 실행되게 해줌
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(
+		strart_screen,
+		"modulate:a",
+		0.0,
+		0.25,
+	)
+	await tween.finished
+	
+	strart_screen.hide()
+	get_tree().paused = false
