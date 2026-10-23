@@ -4,6 +4,7 @@ var is_game_over: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$CanvasLayer/RestartButton.hide()
 	$Player.score_changed.connect(_on_score_changed)
 	$Player.died.connect(_on_player_died)
 	
@@ -64,6 +65,7 @@ func _on_player_died() -> void:
 		Vector2.ONE,
 		0.1
 	)
+	$CanvasLayer/RestartButton.show()
 	
 
 func _process(delta: float) -> void:
@@ -87,3 +89,30 @@ func _on_start_button_pressed() -> void:
 	
 	strart_screen.hide()
 	get_tree().paused = false
+
+func _on_left_button_button_down() -> void:
+	Input.action_press("move_left")
+
+func _on_left_button_button_up() -> void:
+	Input.action_release("move_left")
+
+func _on_right_button_button_down() -> void:
+	Input.action_press("move_right")
+
+func _on_right_button_button_up() -> void:
+	Input.action_release("move_right")
+	
+func _on_up_button_button_down() -> void:
+	Input.action_press("move_up")
+
+func _on_up_button_button_up() -> void:
+	Input.action_release("move_up")
+	
+func _on_down_button_button_down() -> void:
+	Input.action_press("move_down")
+
+func _on_down_button_button_up() -> void:
+	Input.action_release("move_down")
+
+func _on_restart_button_pressed() -> void:
+	get_tree().reload_current_scene()

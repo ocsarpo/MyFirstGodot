@@ -91,6 +91,54 @@ process_mode = 2
 layout_mode = 2
 text = "START"
 
+[node name="MobileControls" type="Control" parent="CanvasLayer" unique_id=2017122206]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LeftButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=164068268]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 522.0
+offset_right = 127.0
+offset_bottom = 608.0
+text = "←"
+
+[node name="RightButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=401414104]
+layout_mode = 0
+offset_left = 215.0
+offset_top = 528.0
+offset_right = 308.0
+offset_bottom = 614.0
+text = "→"
+
+[node name="UpButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=1007853949]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 445.0
+offset_right = 212.0
+offset_bottom = 531.0
+text = "↑"
+
+[node name="DownButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=572991900]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 526.0
+offset_right = 217.0
+offset_bottom = 612.0
+text = "↓"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer" unique_id=738441968]
+offset_left = 575.0
+offset_top = 358.0
+offset_right = 706.0
+offset_bottom = 389.0
+text = "RESTART"
+
 [node name="Item4" parent="." unique_id=740249182 instance=ExtResource("3_h2yge")]
 position = Vector2(706, 347)
 
@@ -100,7 +148,7 @@ motion_mode = 1
 target = NodePath("../Player")
 
 [node name="Item5" parent="." unique_id=1115364892 instance=ExtResource("3_h2yge")]
-position = Vector2(169, 779)
+position = Vector2(120, 1002)
 
 [node name="Item6" parent="." unique_id=462432016 instance=ExtResource("3_h2yge")]
 position = Vector2(467, 1065)
@@ -156,3 +204,12 @@ position = Vector2(548, -730)
 position = Vector2(1356, -753)
 
 [connection signal="pressed" from="CanvasLayer/StartScreen/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/MobileControls/LeftButton" to="." method="_on_left_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/MobileControls/LeftButton" to="." method="_on_left_button_button_up"]
+[connection signal="button_down" from="CanvasLayer/MobileControls/RightButton" to="." method="_on_right_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/MobileControls/RightButton" to="." method="_on_right_button_button_up"]
+[connection signal="button_down" from="CanvasLayer/MobileControls/UpButton" to="." method="_on_up_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/MobileControls/UpButton" to="." method="_on_up_button_button_up"]
+[connection signal="button_down" from="CanvasLayer/MobileControls/DownButton" to="." method="_on_down_button_button_down"]
+[connection signal="button_up" from="CanvasLayer/MobileControls/DownButton" to="." method="_on_down_button_button_up"]
+[connection signal="pressed" from="CanvasLayer/RestartButton" to="." method="_on_restart_button_pressed"]

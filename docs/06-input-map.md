@@ -24,3 +24,21 @@ var direction = Input.get_vector("move_left", "move_right", "move_up", "move_dow
 인자 순서는 x의 음수·양수, y의 음수·양수 방향이다. 반환값은 `Vector2`이며 입력이 없으면 `(0, 0)`이다. 벡터 길이가 1을 넘지 않도록 제한하므로 대각선 입력으로 더 빠르게 이동하는 문제를 방지한다.
 
 관련 문서: [캐릭터 이동](03-character-movement.md).
+
+## 화면 버튼과 같은 Action 공유
+
+2026-10-23 1차 작업에서는 모바일 이동 입력을 시험하기 위해 상하좌우 화면 버튼을 추가했다. Player의 `Input.get_vector()` 이동 코드는 유지하고 Main에서 버튼 Signal을 기존 Action으로 연결했다.
+
+```gdscript
+func _on_left_button_button_down() -> void:
+    Input.action_press("move_left")
+
+func _on_left_button_button_up() -> void:
+    Input.action_release("move_left")
+```
+
+`action_press()`는 해당 Action을 눌린 상태로 만들고, `action_release()`는 해제한다. 오른쪽·위·아래도 같은 방식으로 `move_right`, `move_up`, `move_down`에 연결했다.
+
+키보드 입력과 화면 버튼이 같은 Action을 사용하므로 Player는 입력 장치를 구분하는 별도 이동 코드를 갖지 않는다. 버튼 UI는 모바일 조작 구조를 검증하는 임시 단계이며 최종 방식은 아니다. 가상 조이스틱은 아직 구현하지 않았다.
+
+버튼 Signal과 Mouse Filter는 [기본 UI](11-basic-ui.md)에 정리했다.

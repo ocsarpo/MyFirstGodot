@@ -18,6 +18,7 @@ CanvasLayer는 월드 카메라의 이동과 독립된 UI를 표시하는 데 �
 
 ```gdscript
 func _ready() -> void:
+    $CanvasLayer/RestartButton.hide()
     $Player.score_changed.connect(_on_score_changed)
     $Player.died.connect(_on_player_died)
     get_tree().paused = true
@@ -60,7 +61,9 @@ func _process(delta: float) -> void:
         get_tree().reload_current_scene()
 ```
 
-Input Map의 `restart`에는 R 키가 연결되어 있다. `is_action_just_pressed()`는 Action을 누르기 시작한 프레임에만 참이므로 누르고 있는 동안 계속 요청하는 것을 피한다. 현재 코드는 Game Over 상태에서만 재시작한다.
+Input Map의 `restart`에는 R 키가 연결되어 있다. `is_action_just_pressed()`는 Action을 누르기 시작한 프레임에만 참이므로 누르고 있는 동안 계속 요청하는 것을 피한다. 이 키보드 경로는 Game Over 상태를 확인한다.
+
+현재는 CanvasLayer 아래 `RestartButton`도 추가했다. Main의 `_ready()`에서 숨기고, `_on_player_died()`에서 GAME OVER Tween을 등록한 뒤 표시한다. Tween 완료를 기다려 표시하는 구조는 아니다. 버튼의 `pressed` Signal은 `_on_restart_button_pressed()`에 연결되어 `get_tree().reload_current_scene()`을 직접 호출한다. R 키와 화면 버튼 모두 같은 Scene 재로드를 사용한다.
 
 `get_tree()`로 SceneTree에 접근하고 `reload_current_scene()`으로 현재 Scene을 다시 로드한다. 이번 프로젝트의 Player 상태·Score·아이템·Enemy 위치·Main의 Game Over 상태는 Scene과 스크립트의 초기값으로 돌아간다. 각 값을 수동 초기화하는 대신 현재 Scene을 새로 구성해 최소 게임 루프를 완성했다.
 
@@ -89,3 +92,17 @@ Control은 UI의 위치와 크기를 다루는 기본 Node다. StartScreen과 Ce
 전환 Tween에는 `tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)`를 설정해 Pause 중에도 실행되게 했다. StartScreen의 `modulate:a`를 0.25초 동안 0으로 줄이고, `await tween.finished` 이후 `hide()`와 `get_tree().paused = false`를 순서대로 실행한다. 단순히 투명해진 순간부터 플레이가 진행되는 것이 아니라 페이드 완료 뒤 Pause를 해제한다.
 
 이로써 실행 → 시작 화면 → START → Fade Out → 플레이 → GAME OVER → R → 시작 화면으로 흐름이 연결된다. Alpha와 Tween의 기본 개념은 [시각적 피드백](13-tween-and-feedback.md)을 참고한다.
+
+## 모바일 이동 테스트 UI
+
+CanvasLayer 아래 `MobileControls`를 Full Rect Control로 추가하고 `LeftButton`, `RightButton`, `UpButton`, `DownButton`을 배치했다. 현재 버튼 위치는 고정 offset이며 기기별 표시 여부를 구분하는 코드는 없다.
+
+MobileControls의 `mouse_filter = 2`는 Ignore다. 부모 Control의 빈 영역이 기존 UI의 마우스 입력을 가로막지 않게 하며, 자식 버튼의 입력 설정까지 Ignore로 바꾸는 것은 아니다.
+
+| Signal | 이번 사용 |
+| --- | --- |
+| `button_down` | 버튼을 누르기 시작할 때 이동 Action 활성화 |
+| `button_up` | 버튼을 놓을 때 이동 Action 해제 |
+| `pressed` | 클릭이 성립할 때 START나 RESTART 실행 |
+
+현재 Button의 기본 클릭 동작에서는 `pressed`가 놓을 때 발생한다. 이동은 누르고 있는 상태를 표현해야 하므로 down/up을 나눠 사용했다. Action 연결은 [Input Map](06-input-map.md)을 참고한다. 이 UI는 임시 테스트 단계로, 모바일 웹 전체 대응 완료를 의미하지 않는다.
