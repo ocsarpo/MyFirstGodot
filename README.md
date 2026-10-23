@@ -11,7 +11,7 @@ Godot 4와 GDScript로 2D 웹게임을 직접 만들며 게임 개발 개념을 
 
 ## 현재 상태
 
-START 화면을 거쳐 이동·아이템 획득·득점·Enemy 추적과 충돌·사망 연출·GAME OVER로 이어진다. R 또는 RESTART 버튼으로 Scene을 다시 로드하면 시작 화면으로 돌아온다. 키보드와 임시 화면 방향 버튼으로 이동하는 기본 아이콘 기반 학습용 게임이며, 웹 배포는 아직 하지 않았다.
+START 화면을 거쳐 이동·아이템 획득·득점·Enemy 추적과 충돌·사망 연출·GAME OVER로 이어진다. R 또는 RESTART 버튼으로 Scene을 다시 로드하면 시작 화면으로 돌아온다. 키보드와 Dynamic VirtualJoystick이 같은 이동 Action을 사용하며, 로컬 PC 웹·모바일 Chrome 테스트를 진행했다. 공개 배포는 아직 하지 않았다.
 
 ## 문서 인덱스
 
@@ -28,6 +28,7 @@ START 화면을 거쳐 이동·아이템 획득·득점·Enemy 추적과 충돌�
 - [기본 UI](docs/11-basic-ui.md)
 - [Enemy 추적 이동](docs/12-enemy-chasing.md)
 - [Tween과 시각적 피드백](docs/13-tween-and-feedback.md)
+- [Web Export와 실제 기기 테스트](docs/14-web-export-and-testing.md)
 - [2026-10-06 — Day 1 기록](devlog/2026-10-06.md)
 - [2026-10-07 — Day 2 기록](devlog/2026-10-07.md)
 - [2026-10-08 — Day 3 기록](devlog/2026-10-08.md)
@@ -37,7 +38,7 @@ START 화면을 거쳐 이동·아이템 획득·득점·Enemy 추적과 충돌�
 - [2026-10-16 — Day 7 기록](devlog/2026-10-16.md)
 - [2026-10-18 — Day 8 기록](devlog/2026-10-18.md)
 - [2026-10-22 — Day 9 기록과 10월 남은 목표](devlog/2026-10-22.md)
-- [2026-10-23 — Day 10, 1차 작업](devlog/2026-10-23.md)
+- [2026-10-23 — Day 10, 1·2차 작업](devlog/2026-10-23.md)
 - [2026-W42 주간 회고](devlog/2026-W42.md)
 - [Codex 작업 지침](AGENTS.md)
 

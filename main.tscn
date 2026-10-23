@@ -51,6 +51,31 @@ position = Vector2(872, 497)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=953105424]
 
+[node name="MobileControls" type="Control" parent="CanvasLayer" unique_id=2017122206]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VirtualJoystick" type="VirtualJoystick" parent="CanvasLayer/MobileControls" unique_id=1160982064]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+joystick_mode = 1
+joystick_size = 150.0
+tip_size = 75.0
+action_left = &"move_left"
+action_right = &"move_right"
+action_up = &"move_up"
+action_down = &"move_down"
+visibility_mode = 1
+
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=793426347]
 anchors_preset = -1
 anchor_left = 0.09200001
@@ -61,6 +86,7 @@ offset_left = -29.984009
 offset_top = -11.760002
 offset_right = 31.015991
 offset_bottom = 11.239998
+theme_override_font_sizes/font_size = 42
 text = "Score: 0"
 
 [node name="StartScreen" type="Control" parent="CanvasLayer" unique_id=513858175]
@@ -88,55 +114,18 @@ text = "MY FIRST GODOT"
 
 [node name="StartButton" type="Button" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer" unique_id=634009442]
 process_mode = 2
+custom_minimum_size = Vector2(269, 90)
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "START"
 
-[node name="MobileControls" type="Control" parent="CanvasLayer" unique_id=2017122206]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="LeftButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=164068268]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 522.0
-offset_right = 127.0
-offset_bottom = 608.0
-text = "←"
-
-[node name="RightButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=401414104]
-layout_mode = 0
-offset_left = 215.0
-offset_top = 528.0
-offset_right = 308.0
-offset_bottom = 614.0
-text = "→"
-
-[node name="UpButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=1007853949]
-layout_mode = 0
-offset_left = 119.0
-offset_top = 445.0
-offset_right = 212.0
-offset_bottom = 531.0
-text = "↑"
-
-[node name="DownButton" type="Button" parent="CanvasLayer/MobileControls" unique_id=572991900]
-layout_mode = 0
-offset_left = 124.0
-offset_top = 526.0
-offset_right = 217.0
-offset_bottom = 612.0
-text = "↓"
-
 [node name="RestartButton" type="Button" parent="CanvasLayer" unique_id=738441968]
-offset_left = 575.0
-offset_top = 358.0
-offset_right = 706.0
-offset_bottom = 389.0
+custom_minimum_size = Vector2(269, 89)
+offset_left = 505.0
+offset_top = 376.0
+offset_right = 774.0
+offset_bottom = 465.0
+theme_override_font_sizes/font_size = 30
 text = "RESTART"
 
 [node name="Item4" parent="." unique_id=740249182 instance=ExtResource("3_h2yge")]
@@ -157,7 +146,7 @@ position = Vector2(467, 1065)
 position = Vector2(956, 1024)
 
 [node name="Item8" parent="." unique_id=1313431714 instance=ExtResource("3_h2yge")]
-position = Vector2(1282, 740)
+position = Vector2(1386, 959)
 
 [node name="Item9" parent="." unique_id=628220209 instance=ExtResource("3_h2yge")]
 position = Vector2(1548, 197)
@@ -204,12 +193,4 @@ position = Vector2(548, -730)
 position = Vector2(1356, -753)
 
 [connection signal="pressed" from="CanvasLayer/StartScreen/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="button_down" from="CanvasLayer/MobileControls/LeftButton" to="." method="_on_left_button_button_down"]
-[connection signal="button_up" from="CanvasLayer/MobileControls/LeftButton" to="." method="_on_left_button_button_up"]
-[connection signal="button_down" from="CanvasLayer/MobileControls/RightButton" to="." method="_on_right_button_button_down"]
-[connection signal="button_up" from="CanvasLayer/MobileControls/RightButton" to="." method="_on_right_button_button_up"]
-[connection signal="button_down" from="CanvasLayer/MobileControls/UpButton" to="." method="_on_up_button_button_down"]
-[connection signal="button_up" from="CanvasLayer/MobileControls/UpButton" to="." method="_on_up_button_button_up"]
-[connection signal="button_down" from="CanvasLayer/MobileControls/DownButton" to="." method="_on_down_button_button_down"]
-[connection signal="button_up" from="CanvasLayer/MobileControls/DownButton" to="." method="_on_down_button_button_up"]
 [connection signal="pressed" from="CanvasLayer/RestartButton" to="." method="_on_restart_button_pressed"]

@@ -39,6 +39,12 @@ func _on_left_button_button_up() -> void:
 
 `action_press()`는 해당 Action을 눌린 상태로 만들고, `action_release()`는 해제한다. 오른쪽·위·아래도 같은 방식으로 `move_right`, `move_up`, `move_down`에 연결했다.
 
-키보드 입력과 화면 버튼이 같은 Action을 사용하므로 Player는 입력 장치를 구분하는 별도 이동 코드를 갖지 않는다. 버튼 UI는 모바일 조작 구조를 검증하는 임시 단계이며 최종 방식은 아니다. 가상 조이스틱은 아직 구현하지 않았다.
+키보드 입력과 화면 버튼이 같은 Action을 사용하므로 Player는 입력 장치를 구분하는 별도 이동 코드를 갖지 않는다. 이 버튼 UI는 1차 작업의 임시 단계였으며 2차 작업에서 VirtualJoystick으로 교체했다.
 
 버튼 Signal과 Mouse Filter는 [기본 UI](11-basic-ui.md)에 정리했다.
+
+## Dynamic VirtualJoystick으로 교체
+
+현재 MobileControls 아래의 VirtualJoystick은 Full Rect이며 `joystick_mode = 1`인 Dynamic 방식이다. 터치 위치를 기준으로 방향을 드래그하여 입력한다. 네 방향 속성은 `move_left`, `move_right`, `move_up`, `move_down`에 연결되어 키보드와 같은 Player 이동 로직을 사용한다. 모드 의미는 [Godot VirtualJoystick 문서](https://docs.godotengine.org/en/stable/classes/class_virtualjoystick.html)를 참고한다.
+
+PC에서 마우스로 터치를 시험하기 위해 `emulate_touch_from_mouse = true`, `emulate_mouse_from_touch = false`를 설정했다. 기존 방향 Button과 Signal 연결은 Scene에서 제거됐지만 Main의 해당 처리 함수는 남아 있다. 이번 체크포인트에서는 이를 정리하지 않았다.

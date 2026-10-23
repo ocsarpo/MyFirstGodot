@@ -33,6 +33,8 @@ Limit은 시야 제한이다. 현재 Player의 이동 제한은 Wall TileMapLaye
 
 현재 기본 viewport 크기는 `1280 × 720`으로 설정했다. 16:9 화면을 기준으로 사용한다.
 
-Camera2D의 실제 Zoom 값은 `(0.6, 0.6)`이다. 1보다 작게 설정해 월드의 Player·Enemy·Item·타일이 작게 보이고 더 넓은 영역이 화면에 들어오게 했다. CanvasLayer의 UI는 월드 Camera Zoom의 영향을 받지 않는다.
+모바일에서 월드 요소가 작게 보여 Camera2D의 기존 `(0.6, 0.6)` 설정을 제거했다. 현재는 기본 Zoom `(1, 1)`을 사용해 이전보다 크게 보인다. Sprite 자체의 크기를 변경한 것은 아니다. CanvasLayer UI는 월드 Camera Zoom의 영향을 받지 않으므로 UI 글꼴과 버튼 크기는 별도로 조절했다. 기본값은 [Camera2D 문서](https://docs.godotengine.org/en/stable/classes/class_camera2d.html)를 참고한다.
+
+Stretch Mode는 `canvas_items`이며, 기존 Aspect `expand` 설정은 제거되어 기본값 `keep`을 사용한다. 기준 1280×720의 16:9 비율을 유지하며 다른 비율에서는 여백이 생길 수 있다. [ProjectSettings 문서](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-display-window-stretch-aspect)
 
 관련 문서: [충돌](04-collision.md), [Scene과 Instance](05-scene-and-instance.md).

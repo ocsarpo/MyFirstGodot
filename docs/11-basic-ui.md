@@ -95,7 +95,7 @@ Control은 UI의 위치와 크기를 다루는 기본 Node다. StartScreen과 Ce
 
 ## 모바일 이동 테스트 UI
 
-CanvasLayer 아래 `MobileControls`를 Full Rect Control로 추가하고 `LeftButton`, `RightButton`, `UpButton`, `DownButton`을 배치했다. 현재 버튼 위치는 고정 offset이며 기기별 표시 여부를 구분하는 코드는 없다.
+1차 작업에서는 CanvasLayer 아래 `MobileControls`를 Full Rect Control로 추가하고 상하좌우 Button을 고정 offset으로 배치했다. 2차 작업에서는 네 Button과 연결을 제거하고 Full Rect VirtualJoystick을 배치했다. 아래 Signal 표는 1차 작업에서 배운 내용이다.
 
 MobileControls의 `mouse_filter = 2`는 Ignore다. 부모 Control의 빈 영역이 기존 UI의 마우스 입력을 가로막지 않게 하며, 자식 버튼의 입력 설정까지 Ignore로 바꾸는 것은 아니다.
 
@@ -105,4 +105,17 @@ MobileControls의 `mouse_filter = 2`는 Ignore다. 부모 Control의 빈 영역�
 | `button_up` | 버튼을 놓을 때 이동 Action 해제 |
 | `pressed` | 클릭이 성립할 때 START나 RESTART 실행 |
 
-현재 Button의 기본 클릭 동작에서는 `pressed`가 놓을 때 발생한다. 이동은 누르고 있는 상태를 표현해야 하므로 down/up을 나눠 사용했다. Action 연결은 [Input Map](06-input-map.md)을 참고한다. 이 UI는 임시 테스트 단계로, 모바일 웹 전체 대응 완료를 의미하지 않는다.
+Button의 기본 클릭 동작에서는 `pressed`가 놓을 때 발생한다. 1차 이동 버튼은 누르고 있는 상태를 표현해야 하므로 down/up을 나눠 사용했다. 현재 조이스틱의 Action 연결은 [Input Map](06-input-map.md)을 참고한다.
+
+## 실제 휴대폰 기준 UI 크기
+
+2차 작업에서는 모바일 가독성과 터치 크기를 확인하며 다음 Scene 값을 저장했다. 수치는 기준 UI 좌표계의 값이며 실제 기기 픽셀 크기와 항상 같지는 않다.
+
+| 항목 | 현재 값 |
+| --- | --- |
+| VirtualJoystick | `joystick_size = 150.0`, `tip_size = 75.0`, `visibility_mode = 1` |
+| START | 최소 크기 269×90, 글꼴 32 |
+| RESTART | 최소 크기 269×89, 글꼴 30, offset 기준 (505, 376)~(774, 465) |
+| Score / GAME OVER 공용 Label | 글꼴 42 |
+
+실제 기기 테스트 결과와 Web 설정은 [Web 테스트 문서](14-web-export-and-testing.md)에 정리했다.
